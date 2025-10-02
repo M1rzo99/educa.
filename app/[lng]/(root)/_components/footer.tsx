@@ -60,9 +60,9 @@ function Footer() {
 								<Mail size={20} />
 								<a
 									className='text-sm hover:text-blue-500 hover:underline dark:hover:text-blue-300'
-									href='mailto:info@sammi.ac'
+									href='mailto:accaunoff99@gmail.com'
 								>
-									info@sammi.ac
+									accaunoff99@gmail.com
 								</a>
 							</div>
 
