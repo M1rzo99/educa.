@@ -32,7 +32,7 @@ function Hero() {
 						</Link>
 						<Link href={'/blogs'}>
 							<Button size={'lg'} rounded={'full'}>
-								{t('blogs')}
+								{t('Blogs')}
 							</Button>
 						</Link>
 					</div>
