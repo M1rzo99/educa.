@@ -1,9 +1,9 @@
 'use client'
 
 import { useRefresh } from '@/hooks/use-refresh'
-import { Dialog, DialogContent } from '../ui/dialog'
 import { Loader2 } from 'lucide-react'
 import Countdown, { zeroPad } from 'react-countdown'
+import { Dialog, DialogContent } from '../ui/dialog'
 
 function RefreshModal() {
 	const { isOpen } = useRefresh()

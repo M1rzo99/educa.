@@ -1,12 +1,12 @@
+import { Separator } from '@/components/ui/separator'
 import { getReadingTime } from '@/lib/utils'
 import { getDetailedBlog } from '@/service/blogs.service'
 import { format } from 'date-fns'
+import parse from 'html-react-parser'
 import { CalendarDays, Clock, Minus } from 'lucide-react'
+import { Metadata, ResolvingMetadata } from 'next'
 import Image from 'next/image'
 import ShareBtns from './_components/share-btns'
-import parse from 'html-react-parser'
-import { Separator } from '@/components/ui/separator'
-import { Metadata, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(
 	{ params }: { params: { slug: string } },

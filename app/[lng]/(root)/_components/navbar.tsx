@@ -1,21 +1,21 @@
 'use client'
 
+import LanguageDropdown from '@/components/shared/language-dropdown'
 import Logo from '@/components/shared/logo'
 import ModeToggle from '@/components/shared/mode-toggle'
+import Notification from '@/components/shared/notification'
+import UserBox from '@/components/shared/user-box'
 import { Button } from '@/components/ui/button'
 import { navLinks } from '@/constants'
+import { useCart } from '@/hooks/use-cart'
+import useTranslate from '@/hooks/use-translate'
+import { cn } from '@/lib/utils'
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
 import { LogIn, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import GlobalSearch from './global-search'
-import LanguageDropdown from '@/components/shared/language-dropdown'
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
-import UserBox from '@/components/shared/user-box'
-import useTranslate from '@/hooks/use-translate'
-import Mobile from './mobile'
 import { useParams, usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import { useCart } from '@/hooks/use-cart'
-import Notification from '@/components/shared/notification'
+import GlobalSearch from './global-search'
+import Mobile from './mobile'
 
 function Navbar() {
 	const t = useTranslate()
@@ -75,16 +75,33 @@ function Navbar() {
 						<UserBox />
 					</SignedIn>
 					<SignedOut>
-						<SignInButton mode='modal'>
-							<Button size={'lg'} rounded={'full'} className='hidden md:flex'>
-								{t('logIn')}
-							</Button>
-						</SignInButton>
-						<SignInButton mode='modal'>
-							<Button size={'icon'} variant={'ghost'} className='md:hidden'>
-								<LogIn />
-							</Button>
-						</SignInButton>
+						{/* Desktop: Log in + Sign up (yonma-yon) */}
+						<div className='hidden items-center gap-2 md:flex'>
+							<SignInButton mode='modal'>
+								<Button size={'lg'} rounded={'full'}>
+									{t('logIn')}
+								</Button>
+							</SignInButton>
+							<SignUpButton mode='modal' >
+								<Button size={'lg'} rounded={'full'} variant={'outline'}>
+									{t('signUp')}
+								</Button>
+							</SignUpButton>
+						</div>
+
+						{/* Mobile: Log in icon + Sign up icon */}
+						<div className='flex md:hidden'>
+							<SignInButton mode='modal'>
+								<Button size={'icon'} variant={'ghost'} aria-label='log-in'>
+									<LogIn />
+								</Button>
+							</SignInButton>
+							<SignUpButton mode='modal'>
+								<Button size={'icon'} variant={'ghost'} aria-label='sign-up'>
+									{t('signUp')}
+								</Button>
+							</SignUpButton>
+						</div>
 					</SignedOut>
 				</div>
 			</div>
