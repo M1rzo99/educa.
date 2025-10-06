@@ -21,6 +21,7 @@ export default authMiddleware({
 		'/:lng/sign-in',
 		'/:lng/sign-up',
 		'/:lng/ai',
+ 		'/:lng/become-instructor',
 	],
 	ignoredRoutes: ['/en/api/webhook'],
 })
