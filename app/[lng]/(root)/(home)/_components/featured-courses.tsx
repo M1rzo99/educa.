@@ -69,17 +69,16 @@ function FeaturedCourses({ courses }: Props) {
 				opts={{ align: 'start' }}
 				className='mt-6 hidden w-full md:flex'
 			>
-				<CarouselContent className="justify-center">
-  {courses.map((course) => (
-    <CarouselItem
-      key={course.title}
-      className="flex-none w-[330px] md:w-[380px]" // kartaning doimiy kengligi
-    >
-      <CourseCard {...course} />
-    </CarouselItem>
-  ))}
-</CarouselContent>
-
+				<CarouselContent className='w-full'>
+					{courses.map(course => (
+						<CarouselItem
+							key={course.title}
+							className='md:basis-1/2 lg:basis-1/3 '
+						>
+							<CourseCard {...course} />
+						</CarouselItem>
+					))}
+				</CarouselContent>
 				<CarouselPrevious />
 				<CarouselNext />
 			</Carousel>

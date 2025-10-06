@@ -1,12 +1,12 @@
 'use server'
 
-import { connectToDatabase } from '@/lib/mongoose'
-import { ICreateLesson, ILessonFields, IUpdatePosition } from './types'
-import Section from '@/database/section.model'
-import Lesson from '@/database/lesson.model'
-import { revalidatePath } from 'next/cache'
-import UserProgress from '@/database/user-progress.model'
 import { ILesson } from '@/app.types'
+import Lesson from '@/database/lesson.model'
+import Section from '@/database/section.model'
+import UserProgress from '@/database/user-progress.model'
+import { connectToDatabase } from '@/lib/mongoose'
+import { revalidatePath } from 'next/cache'
+import { ICreateLesson, ILessonFields, IUpdatePosition } from './types'
 
 export const getLessons = async (section: string) => {
 	try {
@@ -203,9 +203,7 @@ export const getLastLesson = async (clerkId: string, courseId: string) => {
 				lessonId: sections[0].lessons[0]._id.toString(),
 			}
 		}
-
 		const section = await Section.findOne({ lessons: lastLesson.lessonId })
-
 		return {
 			lessonId: lastLesson.lessonId.toString(),
 			sectionId: section._id.toString(),
