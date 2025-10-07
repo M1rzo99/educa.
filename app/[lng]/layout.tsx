@@ -1,15 +1,15 @@
+import { ThemeProvider } from '@/components/providers/theme.provider'
+import { Toaster } from '@/components/ui/sonner'
+import { languages } from '@/i18n/settings'
+import { localization } from '@/lib/utils'
+import { ChildProps } from '@/types'
+import { ClerkProvider } from '@clerk/nextjs'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import { dir } from 'i18next'
 import type { Metadata } from 'next'
 import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
-import './globals.css'
-import { ChildProps } from '@/types'
-import { ThemeProvider } from '@/components/providers/theme.provider'
-import { languages } from '@/i18n/settings'
-import { dir } from 'i18next'
-import { ClerkProvider } from '@clerk/nextjs'
-import { localization } from '@/lib/utils'
-import { Toaster } from '@/components/ui/sonner'
 import NextTopLoader from 'nextjs-toploader'
-import { GoogleAnalytics } from '@next/third-parties/google'
+import './globals.css'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -85,7 +85,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 						<div>{children}</div>
 					</ThemeProvider>
 				</body>
-				<GoogleAnalytics gaId='G-B8NJKXCBV4' />
+				<GoogleAnalytics gaId='G-ZSEM3XQVH2' />
 			</html>
 		</ClerkProvider>
 	)
