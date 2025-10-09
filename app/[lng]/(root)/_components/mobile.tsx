@@ -2,22 +2,22 @@
 
 import LanguageDropdown from '@/components/shared/language-dropdown'
 import Logo from '@/components/shared/logo'
+import ModeToggle from '@/components/shared/mode-toggle'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-  SheetClose,   // ⬅️ qo‘shildi
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetHeader,
+	SheetTrigger,
 } from '@/components/ui/sheet'
 import { navLinks } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
 import { AlignCenter, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'; // ⬅️ til (lng) uchun
 import GlobalSearch from './global-search'
-import ModeToggle from '@/components/shared/mode-toggle'
-import { useParams } from 'next/navigation'   // ⬅️ til (lng) uchun
 
 function Mobile() {
   const t = useTranslate()
