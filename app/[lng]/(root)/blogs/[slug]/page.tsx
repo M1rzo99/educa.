@@ -1,5 +1,12 @@
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from '@/components/ui/carousel'
 import { Separator } from '@/components/ui/separator'
-import { getReadingTime } from '@/lib/utils'
+import { getReadingTime, getVideoEmbedUrl } from '@/lib/utils'
 import { getDetailedBlog } from '@/service/blogs.service'
 import { format } from 'date-fns'
 import parse from 'html-react-parser'
@@ -71,6 +78,43 @@ async function Page({ params }: { params: { slug: string } }) {
 					className='mt-4 rounded-md'
 				/>
 			)}
+
+			{blog.gallery && blog.gallery.length > 0 && (
+				<Carousel className='mt-4'>
+					<CarouselContent>
+						{blog.gallery.map((image, index) => (
+							<CarouselItem key={index}>
+								<div className='relative aspect-[1120/595] overflow-hidden rounded-md'>
+									<Image
+										fill
+										src={image.url}
+										alt={`${blog.title} - ${index + 1}`}
+										className='object-cover'
+									/>
+								</div>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+					<CarouselPrevious />
+					<CarouselNext />
+				</Carousel>
+			)}
+
+			{blog.videoUrl &&
+				(() => {
+					const embedUrl = getVideoEmbedUrl(blog.videoUrl)
+					return embedUrl ? (
+						<div className='relative mt-4 aspect-video overflow-hidden rounded-md'>
+							<iframe
+								src={embedUrl}
+								title={blog.title}
+								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+								allowFullScreen
+								className='absolute inset-0 size-full'
+							/>
+						</div>
+					) : null
+				})()}
 
 			<div className='relative mt-12 flex w-full max-md:flex-col-reverse md:gap-12'>
 				<div className='flex flex-col space-y-3'>

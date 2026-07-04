@@ -52,6 +52,8 @@ export interface IBlog {
 	category: ICategoryAndTags | null
 	tag: ICategoryAndTags | null
 	image: { url: string } | null
+	gallery: { url: string }[] | null
+	videoUrl: string | null
 	createdAt: string
 	content: { html: string }
 	slug: string

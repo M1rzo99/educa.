@@ -62,6 +62,10 @@ export const getDetailedBlog = cache(async (slug: string) => {
 				image {
 					url
 				}
+				gallery {
+					url
+				}
+				videoUrl
 				slug
 				tag {
 					name
