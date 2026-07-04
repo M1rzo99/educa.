@@ -11,10 +11,9 @@ function BlogCard(blog: IBlog) {
 		<Link href={`/blogs/${blog.slug}`}>
 			<div className={'group grid grid-cols-1 gap-4'}>
 				{blog.image?.url && (
-					<div className='relative rounded-md bg-secondary'>
+					<div className='relative aspect-[650/335] overflow-hidden rounded-md bg-secondary'>
 						<Image
-							width={650}
-							height={335}
+							fill
 							src={blog.image.url}
 							alt={blog.title}
 							className='-translate-y-6 rounded-md object-cover px-2 grayscale transition-all group-hover:-translate-y-7 group-hover:grayscale-0 max-md:-translate-y-2 max-md:group-hover:-translate-y-3 md:px-7'
