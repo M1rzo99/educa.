@@ -8,14 +8,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import useToggleEdit from '@/hooks/use-toggle-edit'
-import { storage } from '@/lib/firebase'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { uploadCourseImage } from '@/actions/upload.action'
 import { Edit2, X } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import { toast } from 'sonner'
-import { v4 as uuidv4 } from 'uuid'
 
 function PreviewImage(course: ICourse) {
 	const { state, onToggle } = useToggleEdit()
@@ -64,30 +62,21 @@ function Forms({ course, onToggle }: FormsProps) {
 		const files = e.target.files
 		if (!files) return
 		const file = files[0]
+		if (!file) return
 
-		const reader = new FileReader()
+		const formData = new FormData()
+		formData.append('file', file)
 
-		if (file) {
-			reader.readAsDataURL(file)
-			reader.onload = e => {
-				const image = e.target?.result as string
-				const refs = ref(storage, `/praktikum/course/${uuidv4()}`)
-				const promise = uploadString(refs, image, 'data_url')
-					.then(() => {
-						getDownloadURL(refs).then(url =>
-							updateCourse(course._id, { previewImage: url }, pathname)
-						)
-					})
-					.then(() => onToggle())
-					.finally(() => setIsLoading(false))
+		const promise = uploadCourseImage(formData)
+			.then(url => updateCourse(course._id, { previewImage: url }, pathname))
+			.then(() => onToggle())
+			.finally(() => setIsLoading(false))
 
-				toast.promise(promise, {
-					loading: 'Loading...',
-					success: 'Successfully updated!',
-					error: 'Something went wrong!',
-				})
-			}
-		}
+		toast.promise(promise, {
+			loading: 'Loading...',
+			success: 'Successfully updated!',
+			error: 'Something went wrong!',
+		})
 	}
 
 	return (
