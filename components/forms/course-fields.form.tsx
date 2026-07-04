@@ -24,16 +24,14 @@ import {
 import { courseCategory, courseLanguage, courseLevels } from '@/constants'
 import { Button } from '../ui/button'
 import { createCourse } from '@/actions/course.action'
+import { uploadCourseImage } from '@/actions/upload.action'
 import { toast } from 'sonner'
 import { ChangeEvent, useState } from 'react'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-import { storage } from '@/lib/firebase'
 import { ImageDown } from 'lucide-react'
 import { Dialog, DialogContent } from '../ui/dialog'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@clerk/nextjs'
-import { v4 as uuidv4 } from 'uuid'
 
 function CourseFieldsForm() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -53,22 +51,18 @@ function CourseFieldsForm() {
 		if (!files) return null
 		const file = files[0]
 
-		const reader = new FileReader()
+		const formData = new FormData()
+		formData.append('file', file)
 
-		reader.readAsDataURL(file)
-		reader.onload = e => {
-			const refs = ref(storage, `/praktikum/course/${uuidv4()}`)
-			const result = e.target?.result as string
-			const promise = uploadString(refs, result, 'data_url').then(() => {
-				getDownloadURL(refs).then(url => setPreviewImage(url))
-			})
+		const promise = uploadCourseImage(formData).then(url =>
+			setPreviewImage(url)
+		)
 
-			toast.promise(promise, {
-				loading: 'Uploading...',
-				success: 'Successfully uploaded!',
-				error: 'Something went wrong!',
-			})
-		}
+		toast.promise(promise, {
+			loading: 'Uploading...',
+			success: 'Successfully uploaded!',
+			error: 'Something went wrong!',
+		})
 	}
 
 	function onSubmit(values: z.infer<typeof courseSchema>) {
