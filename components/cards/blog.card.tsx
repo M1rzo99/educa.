@@ -10,15 +10,17 @@ function BlogCard(blog: IBlog) {
 	return (
 		<Link href={`/blogs/${blog.slug}`}>
 			<div className={'group grid grid-cols-1 gap-4'}>
-				<div className='relative rounded-md bg-secondary'>
-					<Image
-						width={650}
-						height={335}
-						src={blog.image.url}
-						alt={blog.title}
-						className='-translate-y-6 rounded-md object-cover px-2 grayscale transition-all group-hover:-translate-y-7 group-hover:grayscale-0 max-md:-translate-y-2 max-md:group-hover:-translate-y-3 md:px-7'
-					/>
-				</div>
+				{blog.image?.url && (
+					<div className='relative rounded-md bg-secondary'>
+						<Image
+							width={650}
+							height={335}
+							src={blog.image.url}
+							alt={blog.title}
+							className='-translate-y-6 rounded-md object-cover px-2 grayscale transition-all group-hover:-translate-y-7 group-hover:grayscale-0 max-md:-translate-y-2 max-md:group-hover:-translate-y-3 md:px-7'
+						/>
+					</div>
+				)}
 
 				<div className='flex flex-col space-y-4'>
 					{/* Time info */}
@@ -44,26 +46,34 @@ function BlogCard(blog: IBlog) {
 
 					{/* Author */}
 					<div className='flex items-center gap-4'>
+						{blog.author && (
+							<div className='flex items-center gap-2'>
+								{blog.author.image?.url && (
+									<Image
+										src={blog.author.image.url}
+										alt='author'
+										width={30}
+										height={30}
+										className='rounded-sm object-cover'
+									/>
+								)}
+								<p>by {blog.author.name}</p>
+							</div>
+						)}
+						{(blog.tag || blog.category) && <Dot />}
 						<div className='flex items-center gap-2'>
-							<Image
-								src={blog.author.image.url}
-								alt='author'
-								width={30}
-								height={30}
-								className='rounded-sm object-cover'
-							/>
-							<p>by {blog.author.name}</p>
-						</div>
-						<Dot />
-						<div className='flex items-center gap-2'>
-							<Badge variant={'secondary'} role='button'>
-								<Tag className='me-2 size-3' />
-								{blog.tag.name}
-							</Badge>
-							<Badge variant={'outline'} role='button'>
-								<Layers2 className='me-2 size-3' />
-								{blog.category.name}
-							</Badge>
+							{blog.tag && (
+								<Badge variant={'secondary'} role='button'>
+									<Tag className='me-2 size-3' />
+									{blog.tag.name}
+								</Badge>
+							)}
+							{blog.category && (
+								<Badge variant={'outline'} role='button'>
+									<Layers2 className='me-2 size-3' />
+									{blog.category.name}
+								</Badge>
+							)}
 						</div>
 					</div>
 				</div>

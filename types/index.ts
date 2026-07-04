@@ -33,7 +33,7 @@ export interface IInstructor {
 
 export interface IAuthor {
 	name: string
-	image: { url: string }
+	image: { url: string } | null
 	bio: string
 	blogs: IBlog[]
 	id: string
@@ -48,10 +48,10 @@ export interface ICategoryAndTags {
 export interface IBlog {
 	title: string
 	description: string
-	author: IAuthor
-	category: ICategoryAndTags
-	tag: ICategoryAndTags
-	image: { url: string }
+	author: IAuthor | null
+	category: ICategoryAndTags | null
+	tag: ICategoryAndTags | null
+	image: { url: string } | null
 	createdAt: string
 	content: { html: string }
 	slug: string
