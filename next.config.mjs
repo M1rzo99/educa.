@@ -6,6 +6,9 @@ const nextConfig = {
 			{ protocol: 'http', hostname: '*' },
 		],
 	},
+	experimental: {
+		serverComponentsExternalPackages: ['@vercel/blob'],
+	},
 }
 
 export default nextConfig
