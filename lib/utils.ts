@@ -171,3 +171,31 @@ export const generateNumericId = (): string => {
 	}
 	return id
 }
+
+export const getVideoEmbedUrl = (url: string): string | null => {
+	try {
+		const { hostname, pathname, searchParams } = new URL(url)
+
+		if (hostname.includes('youtu.be')) {
+			return `https://www.youtube.com/embed/${pathname.slice(1)}`
+		}
+
+		if (hostname.includes('youtube.com')) {
+			if (pathname.startsWith('/shorts/')) {
+				return `https://www.youtube.com/embed/${pathname.replace('/shorts/', '')}`
+			}
+			const videoId = searchParams.get('v')
+			if (videoId) return `https://www.youtube.com/embed/${videoId}`
+			if (pathname.startsWith('/embed/')) return url
+		}
+
+		if (hostname.includes('vimeo.com')) {
+			const videoId = pathname.split('/').filter(Boolean).pop()
+			if (videoId) return `https://player.vimeo.com/video/${videoId}`
+		}
+
+		return null
+	} catch {
+		return null
+	}
+}
